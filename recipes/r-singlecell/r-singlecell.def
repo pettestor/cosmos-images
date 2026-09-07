@@ -1,0 +1,23 @@
+Bootstrap: docker
+From: rocker/r-ver:4.4.3
+
+%post
+    export DEBIAN_FRONTEND=noninteractive
+    apt-get update
+    apt-get install -y --no-install-recommends \
+        libhdf5-dev \
+        libglpk-dev \
+        libxml2-dev \
+        libssl-dev \
+        libcurl4-openssl-dev \
+        zlib1g-dev \
+        cmake
+    rm -rf /var/lib/apt/lists/*
+
+    # rocker/r-ver already points install.packages() at a pinned Posit
+    # Package Manager snapshot (mostly prebuilt binaries for this base image,
+    # falling back to source using the apt libs above where needed).
+    Rscript -e 'install.packages(c("Seurat", "hdf5r", "patchwork", "dplyr", "ggplot2"))'
+
+%runscript
+    exec R "$@"
