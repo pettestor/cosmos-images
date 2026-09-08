@@ -3,7 +3,8 @@
 Ambient RNA removal for single-cell data
 
 - **Contributed by:** petterst
-- **Added on:** 2026-09-07
+- **Installed by:** petter
+- **Added on:** 2026-09-08
 - **GPU required:** yes
 - **Recipe:** `recipes/cellbender/cellbender.def`
 - **Image location:** `/scale/gr01/shared/common/software/cellbender/0.3.1/cellbender_v0.3.1.sif`
@@ -14,10 +15,14 @@ Ambient RNA removal for single-cell data
 ```bash
 module use /scale/gr01/shared/common/modules
 module load cellbender/0.3.1
+cellbender [args...]
 ```
 
-Loading the module runs the container directly (`singularity run`). If you need
-an interactive shell inside the image instead, use:
+`module load` only defines the `cellbender` command — it doesn't run anything by
+itself, so it's safe inside a SLURM batch script. `cellbender [args...]` runs
+`singularity run --nv /scale/gr01/shared/common/software/cellbender/0.3.1/cellbender_v0.3.1.sif [args...]`, i.e. whatever the image's
+`%runscript` does with those args. For an interactive shell inside the image
+instead, use:
 
 ```bash
 apptainer shell --nv /scale/gr01/shared/common/software/cellbender/0.3.1/cellbender_v0.3.1.sif

@@ -2,7 +2,7 @@
   version: 0.3.1
   sif_path: /scale/gr01/shared/common/software/cellbender/0.3.1/cellbender_v0.3.1.sif
   contributor: petterst
-  added_date: '2026-09-07'
+  added_date: '2026-09-08'
   gpu: true
   description: Ambient RNA removal for single-cell data
   source: recipes/cellbender/cellbender.def
@@ -10,7 +10,7 @@
   version: '1.0'
   sif_path: /scale/gr01/shared/common/software/r-singlecell/1.0/r-singlecell_v1.0.sif
   contributor: petterst
-  added_date: '2026-09-07'
+  added_date: '2026-09-08'
   gpu: false
   description: Basic R environment for single-cell RNA-seq analysis (Seurat)
   source: recipes/r-singlecell/r-singlecell.def

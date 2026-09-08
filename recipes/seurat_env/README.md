@@ -15,10 +15,14 @@ Single-cell RNA-seq environment (Seurat v5, SingleR, harmony, slingshot)
 ```bash
 module use /scale/gr01/shared/common/modules
 module load seurat_env/1.0
+seurat_env [args...]
 ```
 
-Loading the module runs the container directly (`singularity run`). If you need
-an interactive shell inside the image instead, use:
+`module load` only defines the `seurat_env` command — it doesn't run anything by
+itself, so it's safe inside a SLURM batch script. `seurat_env [args...]` runs
+`singularity run /scale/gr01/shared/common/software/seurat_env/1.0/seurat_env_v1.0.sif [args...]`, i.e. whatever the image's
+`%runscript` does with those args. For an interactive shell inside the image
+instead, use:
 
 ```bash
 apptainer shell /scale/gr01/shared/common/software/seurat_env/1.0/seurat_env_v1.0.sif

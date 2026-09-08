@@ -3,7 +3,8 @@
 Basic R environment for single-cell RNA-seq analysis (Seurat)
 
 - **Contributed by:** petterst
-- **Added on:** 2026-09-07
+- **Installed by:** petter
+- **Added on:** 2026-09-08
 - **GPU required:** no
 - **Recipe:** `recipes/r-singlecell/r-singlecell.def`
 - **Image location:** `/scale/gr01/shared/common/software/r-singlecell/1.0/r-singlecell_v1.0.sif`
@@ -14,10 +15,14 @@ Basic R environment for single-cell RNA-seq analysis (Seurat)
 ```bash
 module use /scale/gr01/shared/common/modules
 module load r-singlecell/1.0
+r-singlecell [args...]
 ```
 
-Loading the module runs the container directly (`singularity run`). If you need
-an interactive shell inside the image instead, use:
+`module load` only defines the `r-singlecell` command — it doesn't run anything by
+itself, so it's safe inside a SLURM batch script. `r-singlecell [args...]` runs
+`singularity run /scale/gr01/shared/common/software/r-singlecell/1.0/r-singlecell_v1.0.sif [args...]`, i.e. whatever the image's
+`%runscript` does with those args. For an interactive shell inside the image
+instead, use:
 
 ```bash
 apptainer shell /scale/gr01/shared/common/software/r-singlecell/1.0/r-singlecell_v1.0.sif
