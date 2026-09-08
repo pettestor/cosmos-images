@@ -1,0 +1,52 @@
+Bootstrap: docker
+From: bioconductor/bioconductor_docker:RELEASE_3_21
+
+%labels
+    Maintainer Andreas
+    Description Single-cell RNA-seq environment (Seurat v5, SingleR, harmony, slingshot)
+    RBioc R 4.4 / Bioconductor 3.21
+
+%post
+    # System libraries needed to compile some CRAN/Bioconductor packages
+    apt-get update && apt-get install -y --no-install-recommends \
+        libcurl4-openssl-dev \
+        libssl-dev \
+        libxml2-dev \
+        libhdf5-dev \
+        libgeos-dev \
+        libfftw3-dev \
+        libglpk-dev \
+        libcairo2-dev \
+        libxt-dev \
+        cmake
+    # Remove apt cache to keep the image smaller
+    rm -rf /var/lib/apt/lists/*
+
+    # CRAN packages: data manipulation, visualization, clustering
+    R -e 'BiocManager::install(c("ggplot2", "ggalluvial", "dplyr", "patchwork", "scales", 
+        "viridis", "scico", "tidyverse", "pheatmap", "cluster",
+        "clustree", "harmony", "HGNChelper", "Matrix"
+        ), update = FALSE, ask = FALSE)'
+
+    # Seurat v5 and its object class
+    R -e 'BiocManager::install(c("Seurat", "SeuratObject"), update = FALSE, ask = FALSE)'
+
+    # Bioconductor single-cell packages
+    R -e 'BiocManager::install(c("SingleCellExperiment", "scDblFinder", "SingleR", "celldex",
+        "scRNAseq", "org.Hs.eg.db", "slingshot"
+        ), update = FALSE, ask = FALSE)'
+
+    # Marker-based annotation
+    R -e 'BiocManager::install("scCATCH", update = FALSE, ask = FALSE)'
+
+    # Fail the build loudly if any core packages missing
+    R -e 'for (p in c("Seurat","SingleR","harmony","slingshot","scDblFinder","clustree","tidyverse"
+    )) { if (!requireNamespace(p, quietly=TRUE)) stop(paste("MISSING:", p)) };
+    cat("ALL CORE PACKAGES PRESENT\n")'
+
+%environment
+    export LC_ALL=C.UTF-8
+    export LANG=C.UTF-8
+
+%runscript
+    exec R "$@"
