@@ -3,6 +3,7 @@
 Single-cell RNA-seq environment (Seurat v5, SingleR, harmony, slingshot)
 
 - **Contributed by:** andreasb
+- **Installed by:** petter
 - **Added on:** 2026-09-08
 - **GPU required:** no
 - **Recipe:** `recipes/seurat_env/seurat_env.def`
