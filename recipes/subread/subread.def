@@ -1,0 +1,10 @@
+Bootstrap: docker
+From: quay.io/biocontainers/subread:2.1.1--h577a1d6_0
+
+%labels
+    Version 2.1.1
+    Description High-performance read alignment, quantification and mutation discovery (featureCounts, subread-align, subjunc, subindel, exactSNP)
+    Maintainer petterst
+
+%runscript
+    exec "$@"

@@ -22,3 +22,12 @@
   gpu: false
   description: Single-cell RNA-seq environment (Seurat v5, SingleR, harmony, slingshot)
   source: recipes/seurat_env/seurat_env.def
+- name: subread
+  version: 2.1.1
+  sif_path: /scale/gr01/shared/common/software/subread/2.1.1/subread_v2.1.1.sif
+  contributor: petterst
+  added_date: '2026-09-11'
+  gpu: false
+  description: High-performance read alignment, quantification and mutation discovery
+    (featureCounts, subread-align, subjunc, subindel, exactSNP)
+  source: recipes/subread/subread.def
