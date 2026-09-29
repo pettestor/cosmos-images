@@ -31,3 +31,12 @@
   description: High-performance read alignment, quantification and mutation discovery
     (featureCounts, subread-align, subjunc, subindel, exactSNP)
   source: recipes/subread/subread.def
+- name: deeptools
+  version: 3.5.6
+  sif_path: /scale/gr01/shared/common/software/deeptools/3.5.6/deeptools_v3.5.6.sif
+  contributor: petterst
+  added_date: '2026-09-29'
+  gpu: false
+  description: Tools for exploring deep-sequencing data (bamCoverage, bamCompare,
+    computeMatrix, plotHeatmap, plotProfile, multiBamSummary, ...)
+  source: recipes/deeptools/deeptools.def
