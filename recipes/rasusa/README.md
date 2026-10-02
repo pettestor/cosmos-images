@@ -2,6 +2,7 @@
 
 Randomly subsample sequencing reads or alignments to a target depth or number of reads/bases
 
+- **Requested by:** Anaïs Larue
 - **Contributed by:** petterst
 - **Installed by:** petter
 - **Added on:** 2026-10-02

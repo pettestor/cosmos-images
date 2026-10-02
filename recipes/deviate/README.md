@@ -2,6 +2,7 @@
 
 deviaTE: analysis and visualisation of transposable element (TE) diversity and abundance from sequencing reads
 
+- **Requested by:** Anaïs Larue
 - **Contributed by:** petterst
 - **Installed by:** petter
 - **Added on:** 2026-10-02

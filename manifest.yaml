@@ -36,6 +36,7 @@
   version: 5.1.0
   sif_path: /scale/gr01/shared/common/software/rasusa/5.1.0/rasusa_v5.1.0.sif
   contributor: petterst
+  requested_by: "Ana\xEFs Larue"
   added_date: '2026-10-02'
   gpu: false
   description: Randomly subsample sequencing reads or alignments to a target depth
@@ -45,6 +46,7 @@
   version: 2.2.3
   sif_path: /scale/gr01/shared/common/software/deviate/2.2.3/deviate_v2.2.3.sif
   contributor: petterst
+  requested_by: "Ana\xEFs Larue"
   added_date: '2026-10-02'
   gpu: false
   description: 'deviaTE: analysis and visualisation of transposable element (TE) diversity

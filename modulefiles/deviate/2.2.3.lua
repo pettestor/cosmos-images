@@ -1,5 +1,9 @@
 help([[deviaTE: analysis and visualisation of transposable element (TE) diversity and abundance from sequencing reads
 
+Requested by : Anaïs Larue
+Added by     : petter
+Added on     : 2026-10-02
+
 Usage: module load defines the `deviate` command below, it does NOT run
 anything by itself, so this is safe to load inside a SLURM batch script.
   module load deviate/2.2.3
@@ -24,6 +28,7 @@ whatis("Version      : deviate 2.2.3")
 whatis("Category     : Image")
 whatis("Description  : deviaTE: analysis and visualisation of transposable element (TE) diversity and abundance from sequencing reads")
 whatis("Maintainer   : petterst")
+whatis("Requested by : Anaïs Larue")
 whatis("Installed on : 2026-10-02")
 whatis("Installed by : petter")
 

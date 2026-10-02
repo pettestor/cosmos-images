@@ -1,5 +1,9 @@
 help([[Randomly subsample sequencing reads or alignments to a target depth or number of reads/bases
 
+Requested by : Anaïs Larue
+Added by     : petter
+Added on     : 2026-10-02
+
 Usage: module load defines the `rasusa` command below, it does NOT run
 anything by itself, so this is safe to load inside a SLURM batch script.
   module load rasusa/5.1.0
@@ -24,6 +28,7 @@ whatis("Version      : rasusa 5.1.0")
 whatis("Category     : Image")
 whatis("Description  : Randomly subsample sequencing reads or alignments to a target depth or number of reads/bases")
 whatis("Maintainer   : petterst")
+whatis("Requested by : Anaïs Larue")
 whatis("Installed on : 2026-10-02")
 whatis("Installed by : petter")
 
