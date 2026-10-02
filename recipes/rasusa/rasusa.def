@@ -7,4 +7,9 @@ From: quay.io/biocontainers/rasusa:5.1.0--hfa8f182_0
     Maintainer petterst
 
 %runscript
-    exec "$@"
+    # Both `rasusa reads ...` and `rasusa rasusa reads ...` work: if the first
+    # argument isn't a program in the image, it's a rasusa subcommand/option.
+    if [ $# -gt 0 ] && command -v "$1" >/dev/null 2>&1; then
+        exec "$@"
+    fi
+    exec rasusa "$@"
