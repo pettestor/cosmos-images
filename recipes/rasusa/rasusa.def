@@ -1,0 +1,10 @@
+Bootstrap: docker
+From: quay.io/biocontainers/rasusa:5.1.0--hfa8f182_0
+
+%labels
+    Version 5.1.0
+    Description Randomly subsample sequencing reads or alignments to a target depth or number of reads/bases
+    Maintainer petterst
+
+%runscript
+    exec "$@"

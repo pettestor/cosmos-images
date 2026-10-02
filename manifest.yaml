@@ -32,3 +32,12 @@
   description: Tools for exploring deep-sequencing data (bamCoverage, bamCompare,
     computeMatrix, plotHeatmap, plotProfile, multiBamSummary, ...)
   source: recipes/deeptools/deeptools.def
+- name: rasusa
+  version: 5.1.0
+  sif_path: /scale/gr01/shared/common/software/rasusa/5.1.0/rasusa_v5.1.0.sif
+  contributor: petterst
+  added_date: '2026-10-02'
+  gpu: false
+  description: Randomly subsample sequencing reads or alignments to a target depth
+    or number of reads/bases
+  source: recipes/rasusa/rasusa.def
