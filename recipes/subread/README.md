@@ -2,6 +2,7 @@
 
 High-performance read alignment, quantification and mutation discovery (featureCounts, subread-align, subjunc, subindel, exactSNP)
 
+- **Requested by:** not recorded
 - **Contributed by:** petterst
 - **Installed by:** petter
 - **Added on:** 2026-09-11

@@ -1,0 +1,15 @@
+Bootstrap: docker
+From: quay.io/biocontainers/rasusa:5.1.0--hfa8f182_0
+
+%labels
+    Version 5.1.0
+    Description Randomly subsample sequencing reads or alignments to a target depth or number of reads/bases
+    Maintainer petterst
+
+%runscript
+    # Both `rasusa reads ...` and `rasusa rasusa reads ...` work: if the first
+    # argument isn't a program in the image, it's a rasusa subcommand/option.
+    if [ $# -gt 0 ] && command -v "$1" >/dev/null 2>&1; then
+        exec "$@"
+    fi
+    exec rasusa "$@"

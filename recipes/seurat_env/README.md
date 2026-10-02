@@ -2,6 +2,7 @@
 
 Single-cell RNA-seq environment (Seurat v5, SingleR, harmony, slingshot)
 
+- **Requested by:** not recorded
 - **Contributed by:** andreasb
 - **Installed by:** petter
 - **Added on:** 2026-09-08
