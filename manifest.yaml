@@ -41,3 +41,12 @@
   description: Randomly subsample sequencing reads or alignments to a target depth
     or number of reads/bases
   source: recipes/rasusa/rasusa.def
+- name: deviate
+  version: 2.2.3
+  sif_path: /scale/gr01/shared/common/software/deviate/2.2.3/deviate_v2.2.3.sif
+  contributor: petterst
+  added_date: '2026-10-02'
+  gpu: false
+  description: 'deviaTE: analysis and visualisation of transposable element (TE) diversity
+    and abundance from sequencing reads'
+  source: recipes/deviate/deviate.def

@@ -1,0 +1,53 @@
+Bootstrap: docker
+From: python:3.12.15-slim-bookworm
+
+%labels
+    Version 2.2.3
+    Description deviaTE: analysis and visualisation of transposable element (TE) diversity and abundance from sequencing reads
+    Maintainer petterst
+
+%post
+    set -eu
+    # mappy (minimap2 bindings) only ships as source on PyPI, so it needs a compiler.
+    apt-get update
+    apt-get install -y --no-install-recommends build-essential zlib1g-dev curl ca-certificates
+    pip install --no-cache-dir deviaTE==2.2.3
+    pip freeze > /opt/deviate-pip-freeze.txt
+
+    # deviaTE downloads its default Drosophila TE library from GitHub on every
+    # run without --library, which fails on air-gapped COSMOS-SENS. Bake in the
+    # same files (pinned commit; sizes are the ones deviaTE itself asserts), with
+    # the single-copy genes appended exactly as deviaTE does.
+    lib=/opt/deviate/lib
+    mkdir -p $lib /opt/deviate/bin
+    base=https://raw.githubusercontent.com/bergmanlab/drosophila-transposons/283c7ab6023b4441677c9962ca319002359046af/releases
+    curl -fsSL -o $lib/transposon_sequence_set_v10.2.fa  $base/transposon_sequence_set_v10.2.fa
+    curl -fsSL -o $lib/transposon_sequence_set_v10.2.gff $base/transposon_sequence_set_v10.2.gff
+    test "$(wc -c < $lib/transposon_sequence_set_v10.2.fa)" -eq 814098
+    test "$(wc -c < $lib/transposon_sequence_set_v10.2.gff)" -eq 188966
+    python -c "from deviaTE.config import SCG; open('$lib/transposon_sequence_set_v10.2.fa', 'a').write(SCG)"
+    chmod -R a+rX /opt/deviate
+
+    # Wrapper, first on PATH: use the baked-in library unless --library is given.
+    cat > /opt/deviate/bin/deviaTE <<'WRAP'
+#!/bin/sh
+case " $* " in
+    *" --library "*|*" --library="*) exec /usr/local/bin/deviaTE "$@" ;;
+esac
+exec /usr/local/bin/deviaTE \
+    --library /opt/deviate/lib/transposon_sequence_set_v10.2.fa \
+    --annotation /opt/deviate/lib/transposon_sequence_set_v10.2.gff "$@"
+WRAP
+    chmod 755 /opt/deviate/bin/deviaTE
+
+    apt-get purge -y build-essential zlib1g-dev curl
+    apt-get autoremove -y
+    rm -rf /var/lib/apt/lists/*
+
+%environment
+    export PATH=/opt/deviate/bin:$PATH
+    # matplotlib (via plotnine) wants a writable config dir; $HOME may be read-only
+    export MPLCONFIGDIR=/tmp
+
+%runscript
+    exec "$@"
