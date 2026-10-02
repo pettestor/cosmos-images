@@ -2,6 +2,7 @@
 
 Basic R environment for single-cell RNA-seq analysis (Seurat)
 
+- **Requested by:** not recorded
 - **Contributed by:** petterst
 - **Installed by:** petter
 - **Added on:** 2026-09-08

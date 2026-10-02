@@ -2,6 +2,7 @@
 
 Tools for exploring deep-sequencing data (bamCoverage, bamCompare, computeMatrix, plotHeatmap, plotProfile, multiBamSummary, ...)
 
+- **Requested by:** not recorded
 - **Contributed by:** petterst
 - **Installed by:** petter
 - **Added on:** 2026-09-29

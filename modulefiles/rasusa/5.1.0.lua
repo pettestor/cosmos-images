@@ -19,9 +19,13 @@ local sif = base .. "/rasusa_v" .. version .. ".sif"
 -- which ran the container immediately on `module load` itself — broken for
 -- anything with an interactive entrypoint, and for any use inside a batch
 -- job. Don't reintroduce that pattern.)
+-- env -u: Apptainer passes the host environment into the container, so a
+-- loaded cluster module (e.g. SciPy-bundle setting PYTHONPATH) would make the
+-- image's own Python/R load the cluster's incompatible packages. Dropped for
+-- this command only; the user's shell is untouched.
 set_shell_function("rasusa",
-    'singularity run -B/scale,/sw ' .. sif .. ' "$@"',
-    'singularity run -B/scale,/sw ' .. sif .. ' $*')
+    'env -u PYTHONPATH -u PYTHONHOME -u R_LIBS -u R_LIBS_USER singularity run -B/scale,/sw ' .. sif .. ' "$@"',
+    'env -u PYTHONPATH -u PYTHONHOME -u R_LIBS -u R_LIBS_USER singularity run -B/scale,/sw ' .. sif .. ' $*')
 
 whatis("Name         : rasusa singularity image")
 whatis("Version      : rasusa 5.1.0")

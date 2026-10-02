@@ -2,6 +2,7 @@
   version: '1.0'
   sif_path: /scale/gr01/shared/common/software/r-singlecell/1.0/r-singlecell_v1.0.sif
   contributor: petterst
+  requested_by: not recorded
   added_date: '2026-09-08'
   gpu: false
   description: Basic R environment for single-cell RNA-seq analysis (Seurat)
@@ -10,6 +11,7 @@
   version: '1.0'
   sif_path: /scale/gr01/shared/common/software/seurat_env/1.0/seurat_env_v1.0.sif
   contributor: andreasb
+  requested_by: not recorded
   added_date: '2026-09-08'
   gpu: false
   description: Single-cell RNA-seq environment (Seurat v5, SingleR, harmony, slingshot)
@@ -18,6 +20,7 @@
   version: 2.1.1
   sif_path: /scale/gr01/shared/common/software/subread/2.1.1/subread_v2.1.1.sif
   contributor: petterst
+  requested_by: not recorded
   added_date: '2026-09-11'
   gpu: false
   description: High-performance read alignment, quantification and mutation discovery
@@ -27,6 +30,7 @@
   version: 3.5.6
   sif_path: /scale/gr01/shared/common/software/deeptools/3.5.6/deeptools_v3.5.6.sif
   contributor: petterst
+  requested_by: not recorded
   added_date: '2026-09-29'
   gpu: false
   description: Tools for exploring deep-sequencing data (bamCoverage, bamCompare,
