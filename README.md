@@ -21,8 +21,8 @@ Click a name for that image's details.
 | [deviate](recipes/deviate/README.md) | 2.2.3 | deviaTE: transposable element diversity and abundance from reads (Drosophila TE library built in) | `module load deviate/2.2.3`<br>`deviate deviaTE --input reads.fq` | 2026-10-02 | Anaïs Larue |
 | [deeptools](recipes/deeptools/README.md) | 3.5.6 | Toolkit for deep-sequencing data: coverage tracks, matrices, heatmaps | `module load deeptools/3.5.6`<br>`deeptools bamCoverage -b x.bam -o x.bw` | 2026-09-29 | not recorded |
 | [subread](recipes/subread/README.md) | 2.1.1 | Read alignment and counting (featureCounts, subread-align, subjunc) | `module load subread/2.1.1`<br>`subread featureCounts -a genes.gtf -o counts.txt *.bam` | 2026-09-11 | not recorded |
-| [seurat_env](recipes/seurat_env/README.md) | 1.0 | R for single-cell RNA-seq: Seurat v5, SingleR, harmony, slingshot | `module load seurat_env/1.0`<br>`seurat_env -f script.R` | 2026-09-08 | not recorded |
-| [r-singlecell](recipes/r-singlecell/README.md) | 1.0 | Basic R environment for single-cell RNA-seq (Seurat) | `module load r-singlecell/1.0`<br>`r-singlecell -f script.R` | 2026-09-08 | not recorded |
+| [seurat_env](recipes/seurat_env/README.md) | 1.0 | R for single-cell RNA-seq: Seurat v5, SingleR, harmony, slingshot | `module load seurat_env/1.0`<br>`seurat_env -f script.R` | 2026-09-08 | Andreas Bruzelius |
+| [r-singlecell](recipes/r-singlecell/README.md) | 1.0 | Basic R environment for single-cell RNA-seq (Seurat) | `module load r-singlecell/1.0`<br>`r-singlecell -f script.R` | 2026-09-08 | Test |
 <!-- catalog-table:end -->
 
 ## Layout
