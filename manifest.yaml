@@ -6,6 +6,8 @@
   added_date: '2026-09-08'
   gpu: false
   description: Basic R environment for single-cell RNA-seq analysis (Seurat)
+  summary: Basic R environment for single-cell RNA-seq (Seurat)
+  usage: r-singlecell -f script.R
   source: recipes/r-singlecell/r-singlecell.def
 - name: seurat_env
   version: '1.0'
@@ -15,6 +17,8 @@
   added_date: '2026-09-08'
   gpu: false
   description: Single-cell RNA-seq environment (Seurat v5, SingleR, harmony, slingshot)
+  summary: 'R for single-cell RNA-seq: Seurat v5, SingleR, harmony, slingshot'
+  usage: seurat_env -f script.R
   source: recipes/seurat_env/seurat_env.def
 - name: subread
   version: 2.1.1
@@ -25,6 +29,8 @@
   gpu: false
   description: High-performance read alignment, quantification and mutation discovery
     (featureCounts, subread-align, subjunc, subindel, exactSNP)
+  summary: Read alignment and counting (featureCounts, subread-align, subjunc)
+  usage: subread featureCounts -a genes.gtf -o counts.txt *.bam
   source: recipes/subread/subread.def
 - name: deeptools
   version: 3.5.6
@@ -35,24 +41,31 @@
   gpu: false
   description: Tools for exploring deep-sequencing data (bamCoverage, bamCompare,
     computeMatrix, plotHeatmap, plotProfile, multiBamSummary, ...)
+  summary: 'Toolkit for deep-sequencing data: coverage tracks, matrices, heatmaps'
+  usage: deeptools bamCoverage -b x.bam -o x.bw
   source: recipes/deeptools/deeptools.def
 - name: deviate
   version: 2.2.3
   sif_path: /scale/gr01/shared/common/software/deviate/2.2.3/deviate_v2.2.3.sif
   contributor: petterst
-  requested_by: "Ana\xEFs Larue"
+  requested_by: Anaïs Larue
   added_date: '2026-10-02'
   gpu: false
   description: 'deviaTE: analysis and visualisation of transposable element (TE) diversity
     and abundance from sequencing reads'
+  summary: 'deviaTE: transposable element diversity and abundance from reads (Drosophila
+    TE library built in)'
+  usage: deviate deviaTE --input reads.fq
   source: recipes/deviate/deviate.def
 - name: rasusa
   version: 5.1.0
   sif_path: /scale/gr01/shared/common/software/rasusa/5.1.0/rasusa_v5.1.0.sif
   contributor: petterst
-  requested_by: "Ana\xEFs Larue"
+  requested_by: Anaïs Larue
   added_date: '2026-10-02'
   gpu: false
   description: Randomly subsample sequencing reads or alignments to a target depth
     or number of reads/bases
+  summary: Randomly subsample reads or alignments to a target depth or read/base count
+  usage: rasusa reads -n 1000 -o out.fq in.fq
   source: recipes/rasusa/rasusa.def
