@@ -35,5 +35,3 @@ whatis("Maintainer   : petterst")
 whatis("Requested by : Caterina Francesconi")
 whatis("Installed on : 2026-11-23")
 whatis("Installed by : petter")
-
-family("images")
