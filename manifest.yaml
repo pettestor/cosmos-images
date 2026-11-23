@@ -2,7 +2,7 @@
   version: '1.0'
   sif_path: /scale/gr01/shared/common/software/r-singlecell/1.0/r-singlecell_v1.0.sif
   contributor: petterst
-  requested_by: not recorded
+  requested_by: Test
   added_date: '2026-09-08'
   gpu: false
   description: Basic R environment for single-cell RNA-seq analysis (Seurat)
@@ -13,7 +13,7 @@
   version: '1.0'
   sif_path: /scale/gr01/shared/common/software/seurat_env/1.0/seurat_env_v1.0.sif
   contributor: andreasb
-  requested_by: not recorded
+  requested_by: Andreas Bruzelius
   added_date: '2026-09-08'
   gpu: false
   description: Single-cell RNA-seq environment (Seurat v5, SingleR, harmony, slingshot)
@@ -69,3 +69,29 @@
   summary: Randomly subsample reads or alignments to a target depth or read/base count
   usage: rasusa reads -n 1000 -o out.fq in.fq
   source: recipes/rasusa/rasusa.def
+- name: comet
+  version: 1.1.1
+  sif_path: /scale/gr01/shared/common/software/comet/1.1.1/comet_v1.1.1.sif
+  contributor: petterst
+  requested_by: Caterina Francesconi
+  added_date: '2026-11-23'
+  gpu: false
+  description: 'COMET: assign individual long reads (PacBio HiFi / ONT) from bulk
+    tissue to their cell type of origin from CpG methylation, plus cell-type DMR calling'
+  summary: Cell type of origin for single long reads (PacBio/ONT) from CpG methylation;
+    brain panel included
+  usage: comet assign --platform pacbio --bam s.bam --assign-thres 0.65 --out out/
+  source: recipes/comet/comet.def
+- name: mahi-mahi
+  version: 1.0.0
+  sif_path: /scale/gr01/shared/common/software/mahi-mahi/1.0.0/mahi-mahi_v1.0.0.sif
+  contributor: petterst
+  requested_by: Caterina Francesconi
+  added_date: '2026-11-23'
+  gpu: false
+  description: 'Mahi-mahi (Oxford Nanopore): tandem repeat genotyping from aligned
+    long-read nanopore data (R10), with per-allele VCF, per-read TSV and tagged BAM'
+  summary: Tandem repeat (STR) genotyping from nanopore long reads (ONT, research
+    use only)
+  usage: mahi-mahi --bam s.bam --ref hg38.fa --loci hg38 --sample S --sex XX -o out
+  source: recipes/mahi-mahi/mahi-mahi.def

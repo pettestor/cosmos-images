@@ -1,0 +1,74 @@
+Bootstrap: docker
+From: mambaorg/micromamba:2.10.0-debian13-slim
+
+%labels
+    Version 1.1.1
+    Description COMET: assign individual long reads (PacBio HiFi / ONT) from bulk tissue to their cell type of origin from CpG methylation, plus cell-type DMR calling
+    Maintainer petterst
+
+%post
+    set -eu
+    # Not the biocontainer (quay.io/biocontainers/comet-meth:1.1.1--hdfd78af_0):
+    # it is busybox-based, so `comet dmr` dies on `xargs -L`, and it resolves to
+    # Python 3.14 / numpy 2.5 / pandas 3.1. Instead install comet-meth from
+    # Bioconda with the versions pinned in COMET's environment.yml (the ones the
+    # authors validated against the manuscript), on a Debian base with GNU tools.
+    export MAMBA_ROOT_PREFIX=/opt/conda
+    micromamba create -y -p /opt/comet/env -c conda-forge -c bioconda \
+        comet-meth=1.1.1 \
+        python=3.10 numpy=1.26.4 pandas=2.1.1 scipy=1.11.3 matplotlib-base=3.8 \
+        ont-modkit=0.3.1 metilene=0.2.9 \
+        pysam samtools bedtools htslib perl gawk coreutils findutils curl
+    micromamba env export -p /opt/comet/env > /opt/comet/conda-env-export.yml
+    micromamba clean -a -y
+    E=/opt/comet/env/bin
+
+    # comet assign needs a cell-type reference panel (--ref-panel), which COMET
+    # downloads from Zenodo; COSMOS-SENS is air-gapped. Bake in the brain panel
+    # (hg38, 6 cell types), md5-checked against the Zenodo record.
+    ref=/opt/comet/ref_panel
+    mkdir -p $ref /opt/comet/bin
+    zen=https://zenodo.org/records/24064938/files
+    $E/curl -fsSL --retry 3 -o $ref/brain.atlas.bed.gz     "$zen/brain.atlas.bed.gz?download=1"
+    $E/curl -fsSL --retry 3 -o $ref/brain.atlas.bed.gz.tbi "$zen/brain.atlas.bed.gz.tbi?download=1"
+    cd $ref
+    printf '%s  %s\n' \
+        fe5a2206ec46127b39a341c03546420c brain.atlas.bed.gz \
+        31154c00bb9751c29ca2eaa5120ddf72 brain.atlas.bed.gz.tbi | md5sum -c -
+
+    # Wrapper, first on PATH: `comet assign` and `comet test` get the baked-in
+    # brain panel unless --ref-panel is given. Batch runs (several BAMs) re-call
+    # comet assign with the same arguments, so the panel is passed on.
+    cat > /opt/comet/bin/comet <<'WRAP'
+#!/bin/sh
+real=/opt/comet/env/bin/comet
+case "${1:-}" in
+    assign|test)
+        case " $* " in
+            *" --ref-panel "*|*" --ref-panel="*|*" -h "*|*" --help "*|*" --env-only "*) exec "$real" "$@" ;;
+        esac
+        sub=$1; shift
+        exec "$real" "$sub" --ref-panel /opt/comet/ref_panel/brain.atlas.bed.gz "$@" ;;
+esac
+exec "$real" "$@"
+WRAP
+    chmod 755 /opt/comet/bin/comet
+    chmod -R a+rX /opt/comet
+
+%environment
+    export PATH=/opt/comet/bin:/opt/comet/env/bin:$PATH
+    export COMET_REF_PANEL=/opt/comet/ref_panel/brain.atlas.bed.gz
+    # matplotlib wants a writable config dir; $HOME may be read-only
+    export MPLCONFIGDIR=/tmp
+
+%runscript
+    # `comet assign|dmr|test ...` go to comet (checked first: `test` is also a
+    # shell builtin). Otherwise a program in the image (comet_plot_dmr.py,
+    # samtools, modkit, ...) runs as given, and anything else goes to comet.
+    case "${1:-}" in
+        assign|dmr|test|-h|--help|-v|--version|"") exec comet "$@" ;;
+    esac
+    if command -v "$1" >/dev/null 2>&1; then
+        exec "$@"
+    fi
+    exec comet "$@"

@@ -1,0 +1,38 @@
+Bootstrap: docker
+From: python:3.12.15-slim-bookworm
+
+%labels
+    Version 1.0.0
+    Description Mahi-mahi (Oxford Nanopore): tandem repeat genotyping from aligned long-read nanopore data (R10), with per-allele VCF, per-read TSV and tagged BAM
+    Maintainer petterst
+
+%post
+    set -eu
+    # Not on PyPI or Bioconda: install ONT's release wheel, checked against the
+    # SHA256SUMS published with the v1.0.0 release. All dependencies have
+    # manylinux wheels, so no compiler is needed.
+    apt-get update
+    apt-get install -y --no-install-recommends curl ca-certificates
+    whl=mahi_mahi-1.0.0-py3-none-any.whl
+    cd /tmp
+    curl -fsSL -o $whl https://github.com/nanoporetech/mahi-mahi/releases/download/v1.0.0/$whl
+    echo "9a7e44bb1a106c66e622aa5d144923edf32d6a09bd0d7505f391bd17b089ef41  $whl" | sha256sum -c -
+    pip install --no-cache-dir --only-binary=:all: ./$whl
+    rm -f $whl
+    pip freeze > /opt/mahi-mahi-pip-freeze.txt
+
+    apt-get purge -y curl
+    apt-get autoremove -y
+    rm -rf /var/lib/apt/lists/*
+
+%environment
+    # matplotlib wants a writable config dir; $HOME may be read-only
+    export MPLCONFIGDIR=/tmp
+
+%runscript
+    # Both `mahi-mahi --bam ...` and `mahi-mahi mahi-mahi-loci-tools check ...`
+    # work: a program in the image runs as given, anything else goes to mahi-mahi.
+    if [ $# -gt 0 ] && command -v "$1" >/dev/null 2>&1; then
+        exec "$@"
+    fi
+    exec mahi-mahi "$@"
